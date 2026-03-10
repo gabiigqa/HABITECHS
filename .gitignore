@@ -482,3 +482,20 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# ======================================================================
+# Configuración específica del Proyecto (Credenciales de Supabase, etc.)
+# ======================================================================
+
+# Ignorar TODOS los archivos appsettings para no exponer credenciales
+appsettings.json
+appsettings.*.json
+
+# ======================================================================
+# Entornos virtuales (Python/Node)
+# ======================================================================
+env/
+venv/
+.env/
+.venv/
+
