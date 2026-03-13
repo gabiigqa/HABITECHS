@@ -16,12 +16,13 @@ public class TicketsController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly SupabaseStorageService _blobService;
-
+    
     public TicketsController(AppDbContext context, SupabaseStorageService blobService)
     {
         _context = context;
         _blobService = blobService;
     }
+   
     
     // --- OBTENER MIS TICKETS (Residente) ---
     [HttpGet("my-tickets")]

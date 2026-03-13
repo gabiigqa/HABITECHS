@@ -13,12 +13,7 @@ public class SupabaseStorageService
         _supabaseClient = supabaseClient;
     }
 
-    /// <summary>
-    /// Uploads an IFormFile to Supabase Storage and returns the public URL.
-    /// </summary>
-    /// <param name="file">The file to upload.</param>
-    /// <param name="folderName">The folder in the bucket (e.g., 'payment_proof', 'residents').</param>
-    /// <returns>The public URL of the uploaded file.</returns>
+
     public async Task<string> UploadFileAsync(IFormFile file, string folderName)
     {
         if (file == null || file.Length == 0)
