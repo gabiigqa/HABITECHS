@@ -499,3 +499,6 @@ venv/
 .env/
 .venv/
 
+## .NET build artifacts
+bin/
+obj/

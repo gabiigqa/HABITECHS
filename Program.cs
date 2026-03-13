@@ -2,8 +2,8 @@ using System.Text;
 using HabiTechs.Core.Data;
 using HabiTechs.Modules.Access.Hubs;
 using HabiTechs.Modules.Identity.Services;
-using HabiTechs.Services; 
-using Microsoft.AspNetCore.Authentication.JwtBearer; 
+using HabiTechs.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -41,7 +41,7 @@ if (!string.IsNullOrEmpty(supabaseUrl) && !string.IsNullOrEmpty(supabaseKey))
 }
 
 // Registramos el servicio de storage de Supabase
-builder.Services.AddScoped<SupabaseStorageService>();  
+builder.Services.AddScoped<SupabaseStorageService>();
 
 // --- INICIO DE LA SECCIÓN DE IDENTITY ---
 
@@ -55,7 +55,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireUppercase = false;
         options.Password.RequiredLength = 4;
-        
+
         // Configuración clave de Tokens (para que sepa que usamos JWT)
         options.Tokens.AuthenticatorTokenProvider = TokenValidationParameters.DefaultAuthenticationType;
     })
@@ -76,7 +76,7 @@ builder.Services.AddAuthentication(options =>
         {
             throw new InvalidOperationException("La clave JWT (JwtSettings:Key) no está configurada");
         }
-        
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
@@ -84,10 +84,10 @@ builder.Services.AddAuthentication(options =>
             ValidateLifetime = true,
             ValidateIssuer = true,
             ValidIssuer = config["JwtSettings:Issuer"],
-            ValidateAudience = true, 
+            ValidateAudience = true,
             ValidAudience = config["JwtSettings:Audience"]
         };
-        
+
         // (Para SignalR) Permitir que el Hub reciba el token desde el query string
         options.Events = new JwtBearerEvents
         {
@@ -111,15 +111,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "HabiTechs.API (Monolito)", Version = "v1" });
-    
+
     // 1. Evitar conflictos si hay clases con el mismo nombre en distintos módulos
-    c.CustomSchemaIds(type => type.ToString()); 
-    
+    c.CustomSchemaIds(type => type.ToString());
+
     // 2. Habilitar la subida de archivos (IFormFile)
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name = "Authorization", Type = SecuritySchemeType.Http, Scheme = "bearer", BearerFormat = "JWT",
-        In = ParameterLocation.Header, Description = "JWT Authorization (ej: 'Bearer 12345...')"
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization (ej: 'Bearer 12345...')"
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -136,7 +140,7 @@ builder.Services.AddCors(options =>
     {
         policy.AllowAnyHeader()
               .AllowAnyMethod()
-              .SetIsOriginAllowed(origin => true) 
+              .SetIsOriginAllowed(origin => true)
               .AllowCredentials(); // Requerido para SignalR
     });
 });
@@ -152,9 +156,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseRouting(); 
+app.UseRouting();
 
 app.UseCors("AllowAll");
 
