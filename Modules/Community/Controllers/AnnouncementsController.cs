@@ -1,7 +1,7 @@
 using HabiTechs.Core.Data;
 using HabiTechs.Modules.Community.DTOs;
 using HabiTechs.Modules.Community.Models;
-using HabiTechs.Services;
+using HabiTechs.Services; // Supabase Service
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +15,9 @@ namespace HabiTechs.Modules.Community.Controllers;
 public class AnnouncementsController : ControllerBase
 {
     private readonly AppDbContext _context;
-    private readonly AzureBlobService _blobService;
+    private readonly SupabaseStorageService _blobService;
 
-    public AnnouncementsController(AppDbContext context, AzureBlobService blobService)
+    public AnnouncementsController(AppDbContext context, SupabaseStorageService blobService)
     {
         _context = context;
         _blobService = blobService;

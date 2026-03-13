@@ -2,7 +2,7 @@ using HabiTechs.Core.Data;
 using HabiTechs.Modules.Users.DTOs;
 using HabiTechs.Modules.Users.Models;
 using HabiTechs.Modules.Users.Services;
-using HabiTechs.Services; // Azure Service
+using HabiTechs.Services; // Supabase Service
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +20,14 @@ public class UsersController : ControllerBase
     private readonly UserManager<IdentityUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ResidentCodeService _codeService;
-    private readonly AzureBlobService _blobService;
+    private readonly SupabaseStorageService _blobService;
 
     public UsersController(
         AppDbContext context, 
         UserManager<IdentityUser> userManager,
         RoleManager<IdentityRole> roleManager,
         ResidentCodeService codeService,
-        AzureBlobService blobService)
+        SupabaseStorageService blobService)
     {
         _context = context;
         _userManager = userManager;

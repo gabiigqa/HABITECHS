@@ -1,7 +1,7 @@
 using HabiTechs.Core.Data;
 using HabiTechs.Modules.Community.DTOs;
 using HabiTechs.Modules.Community.Models;
-using HabiTechs.Services;
+using HabiTechs.Services; // Azure Service
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +16,10 @@ namespace HabiTechs.Modules.Community.Controllers;
 public class ChatController : ControllerBase
 {
     private readonly AppDbContext _context;
-    private readonly AzureBlobService _blobService;
+    private readonly SupabaseStorageService _blobService;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public ChatController(AppDbContext context, AzureBlobService blobService, UserManager<IdentityUser> userManager)
+    public ChatController(AppDbContext context, SupabaseStorageService blobService, UserManager<IdentityUser> userManager)
     {
         _context = context;
         _blobService = blobService;

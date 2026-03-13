@@ -20,15 +20,28 @@ builder.Services.AddScoped<HabiTechs.Modules.Users.Services.ResidentCodeService>
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(config.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddSignalR();
 
 builder.Services.AddHttpClient(); // para MercadoPago calls
 
-// Registramos nuestro servicio de Azure Blobs
-builder.Services.AddSingleton<AzureBlobService>(); 
+// Registramos cliente Supabase
+var supabaseUrl = config["Supabase:Url"];
+var supabaseKey = config["Supabase:Key"];
+if (!string.IsNullOrEmpty(supabaseUrl) && !string.IsNullOrEmpty(supabaseKey))
+{
+    var options = new Supabase.SupabaseOptions
+    {
+        AutoRefreshToken = true,
+        AutoConnectRealtime = true
+    };
+    builder.Services.AddSingleton(provider => new Supabase.Client(supabaseUrl, supabaseKey, options));
+}
+
+// Registramos el servicio de storage de Supabase
+builder.Services.AddScoped<SupabaseStorageService>();  
 
 // --- INICIO DE LA SECCIÓN DE IDENTITY ---
 

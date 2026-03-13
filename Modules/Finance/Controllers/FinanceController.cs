@@ -1,7 +1,7 @@
 using HabiTechs.Core.Data;
 using HabiTechs.Modules.Finance.DTOs;
 using HabiTechs.Modules.Finance.Models;
-using HabiTechs.Services; // Para AzureBlobService
+using HabiTechs.Services; // Para SupabaseStorageService
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +17,10 @@ namespace HabiTechs.Modules.Finance.Controllers;
 public class FinanceController : ControllerBase
 {
     private readonly AppDbContext _context;
-    private readonly AzureBlobService _blobService;
+    private readonly SupabaseStorageService _blobService;
     private readonly IConfiguration _config;
 
-    public FinanceController(AppDbContext context, AzureBlobService blobService, IConfiguration config)
+    public FinanceController(AppDbContext context, SupabaseStorageService blobService, IConfiguration config)
     {
         _context = context;
         _blobService = blobService;

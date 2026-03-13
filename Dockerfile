@@ -1,4 +1,4 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
@@ -7,10 +7,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["HabiTechs/HabiTechs.csproj", "HabiTechs/"]
-RUN dotnet restore "HabiTechs/HabiTechs.csproj"
+COPY ["HabiTechs.csproj", "./"]
+RUN dotnet restore "./HabiTechs.csproj"
 COPY . .
-WORKDIR "/src/HabiTechs"
+WORKDIR "/src"
 RUN dotnet build "./HabiTechs.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
